@@ -14,7 +14,9 @@ pipeline {
             steps {
                 dir('QuestionService') {
                     sh 'chmod +x mvnw'
-                    sh './mvnw clean package -DskipTests'
+                    retry(2) {
+                        sh './mvnw -U clean package -DskipTests'
+                    }
                 }
             }
         }
@@ -23,7 +25,9 @@ pipeline {
             steps {
                 dir('QuizService') {
                     sh 'chmod +x mvnw'
-                    sh './mvnw clean package -DskipTests'
+                    retry(2) {
+                        sh './mvnw -U clean package -DskipTests'
+                    }
                 }
             }
         }
@@ -33,7 +37,6 @@ pipeline {
         success {
             echo 'Both microservices built successfully!'
         }
-
         failure {
             echo 'Build failed. Check Console Output.'
         }
