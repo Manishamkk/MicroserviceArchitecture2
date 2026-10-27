@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    tools {
+        jdk 'JDK17'
+        maven 'Maven3'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/Manishamkk/MicroserviceArchitecture2.git'
+            }
+        }
+
+        stage('Build User Service') {
+            steps {
+                dir('user_service') {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build Account Service') {
+            steps {
+                dir('account_service') {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Both microservices built successfully!'
+        }
+        failure {
+            echo 'Microservices build failed. Check the console output.'
+        }
+    }
+}
