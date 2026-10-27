@@ -38,11 +38,17 @@ pipeline {
 
     post {
         success {
+            echo '===================================='
+            echo 'PIPELINE SUCCESS'
             echo 'Both microservices built successfully!'
+            echo '===================================='
         }
 
         failure {
-            echo 'Build failed. Check the Jenkins Console Output.'
+            echo '===================================='
+            echo 'PIPELINE FAILED'
+            echo 'Check Jenkins Console Output.'
+            echo '===================================='
         }
     }
 }

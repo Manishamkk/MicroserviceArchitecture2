@@ -1,0 +1,48 @@
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code...'
+
+                git branch: 'main',
+                    url: 'https://github.com/Manishamkk/MicroserviceArchitecture2.git'
+            }
+        }
+
+        stage('Build QuestionService') {
+            steps {
+                echo 'Building QuestionService...'
+
+                dir('QuestionService') {
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build QuizService') {
+            steps {
+                echo 'Building QuizService...'
+
+                dir('QuizService') {
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean package -DskipTests'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Both microservices built successfully!'
+        }
+
+        failure {
+            echo 'Build failed. Check the Jenkins Console Output.'
+        }
+    }
+}
