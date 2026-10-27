@@ -1,0 +1,15 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import com.example.demo.entity.Quiz;
+
+public interface QuizService {
+
+	
+	List<Quiz> getAll();
+	Quiz getById(Long id);
+	Quiz add(Quiz quiz);
+	Quiz deletById(Long id);
+	
+}

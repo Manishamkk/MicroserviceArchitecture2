@@ -1,0 +1,16 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import com.example.demo.entity.Question;
+
+public interface QuestionService {
+
+	Question create(Question questions);
+	List<Question> getAllQuestions();
+	Question getByIdQuestion(Long id);
+	String deleteById(Long id);
+	List<Question> getQuestionsOfQuiz(Long quizId);
+	
+	
+}

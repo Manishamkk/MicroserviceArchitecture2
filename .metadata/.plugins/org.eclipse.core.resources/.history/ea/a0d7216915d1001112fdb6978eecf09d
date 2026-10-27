@@ -1,0 +1,45 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Question;
+import com.example.demo.repository.QuestionRepository;
+@Service
+public class QuestionServiceImpl implements QuestionService {
+    @Autowired
+	QuestionRepository questionRepository;
+	
+	@Override
+	public Question create(Question questions) {
+		return questionRepository.save(questions);
+	}
+
+	
+	@Override
+	public List<Question> getAllQuestions(Long quizId) {
+		return  questionRepository.findAll();
+	}
+
+	@Override
+	public Question getByIdQuestion(Long id) {
+		return questionRepository.getById(id);
+	}
+
+	@Override
+	public String deleteById(Long id) {
+		questionRepository.deleteById(id);
+		return "Deleted successfully one record with id" +id;
+	}
+
+	@Override
+	public List<Question> getQuestionsOfQuiz(Long quizId) {
+		return questionRepository.findByQuizId(quizId);
+	}
+
+	
+
+
+}

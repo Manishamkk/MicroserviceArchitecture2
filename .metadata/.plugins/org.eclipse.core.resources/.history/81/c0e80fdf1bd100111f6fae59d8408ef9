@@ -1,0 +1,7 @@
+package com.example.demo.service;
+
+
+@FeingClient(url="http://localhost:8080",value = "Question-Client")
+public interface QuestionClient {
+
+}
