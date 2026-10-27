@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -12,7 +13,8 @@ pipeline {
         stage('Build QuestionService') {
             steps {
                 dir('QuestionService') {
-                    sh 'mvn clean package -DskipTests'
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean package -DskipTests'
                 }
             }
         }
@@ -20,9 +22,20 @@ pipeline {
         stage('Build QuizService') {
             steps {
                 dir('QuizService') {
-                    sh 'mvn clean package -DskipTests'
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean package -DskipTests'
                 }
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Both microservices built successfully!'
+        }
+
+        failure {
+            echo 'Build failed. Check Console Output.'
         }
     }
 }
